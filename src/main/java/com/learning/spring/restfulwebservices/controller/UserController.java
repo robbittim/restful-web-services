@@ -3,12 +3,12 @@ package com.learning.spring.restfulwebservices.controller;
 import com.learning.spring.restfulwebservices.UserDaoService;
 import com.learning.spring.restfulwebservices.exception.UserNotFountException;
 import com.learning.spring.restfulwebservices.model.User;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -37,13 +37,13 @@ public class UserController {
 
 
   @PostMapping("/users")
-    public ResponseEntity<Object> createUser(@RequestBody User user){
+    public ResponseEntity<Object> createUser(@Valid @RequestBody User user){
         User savedUser = userDaoService.save(user);
 
       URI location =  ServletUriComponentsBuilder
               .fromCurrentRequest()
               .path("/{id}")
-              .buildAndExpand(savedUser.getUserId())
+              .buildAndExpand(savedUser.getId())
               .toUri();
 
       return ResponseEntity.created(location).build();

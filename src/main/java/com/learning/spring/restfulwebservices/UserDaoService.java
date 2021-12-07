@@ -1,7 +1,6 @@
 package com.learning.spring.restfulwebservices;
 
 import com.learning.spring.restfulwebservices.model.User;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -27,8 +26,8 @@ public class UserDaoService {
     }
 
     public User save(User user){
-        if(user.getUserId()==null){
-            user.setUserId(++userCount);
+        if(user.getId()==null){
+            user.setId(++userCount);
         }
         users.add(user);
         return user;
@@ -36,7 +35,7 @@ public class UserDaoService {
 
     public User findUser(int id){
         for(User user:users){
-            if(user.getUserId()==id){
+            if(user.getId()==id){
                 return user;
             }
         }
@@ -49,7 +48,7 @@ public class UserDaoService {
 
         while(iterator.hasNext()){
             User user = iterator.next();
-            if(user.getUserId() == id){
+            if(user.getId() == id){
                 iterator.remove();
                 return user;
             }
